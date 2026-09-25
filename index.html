@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raushan Kumar · Frontend Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.6;
+    }
+
+    /* ---------- GLOBAL NAV ---------- */
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      padding: 0 2rem;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e9eef3;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+      color: #0a2540;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: #ff7b00;
+      font-size: 1.7rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #334155;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.4rem 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #0a2540;
+      border-bottom-color: #ff7b00;
+    }
+
+    .nav-links i {
+      font-size: 0.95rem;
+      color: #ff7b00;
+    }
+
+    /* ---------- PAGE CONTAINER ---------- */
+    .page {
+      display: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.8rem 4rem;
+      animation: fade 0.25s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0.4; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- HOME / HERO ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 3rem;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 2.8rem 3rem;
+      box-shadow: 0 20px 40px -18px rgba(10, 37, 64, 0.12);
+      border: 1px solid #eef2f6;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-left .greeting {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-left h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      color: #0a2540;
+      margin-bottom: 1rem;
+    }
+
+    .hero-left h1 span {
+      color: #ff7b00;
+    }
+
+    .hero-left p {
+      font-size: 1.1rem;
+      color: #475569;
+      margin-bottom: 1.8rem;
+      max-width: 500px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: #0a2540;
+      color: #ffffff;
+      box-shadow: 0 8px 18px -6px rgba(10, 37, 64, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: #123a5e;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #0a2540;
+      border-color: #cbd5e1;
+    }
+
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 1/1;
+      border-radius: 40px;
+      background: linear-gradient(145deg, #eef2f6, #ffffff);
+      padding: 10px;
+      box-shadow: 0 30px 40px -20px rgba(10, 37, 64, 0.25);
+      border: 1px solid #e2e8f0;
+      position: relative;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 32px;
+      display: block;
+      background: #d9e2e8;
+    }
+
+    /* Small accent on photo */
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background: #ff7b00;
+      border-radius: 50%;
+      bottom: -12px;
+      right: -12px;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    /* ---------- QUICK STATS ---------- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.6rem 1.5rem;
+      border: 1px solid #eef2f6;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      background: #f1f5f9;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: #ff7b00;
+    }
+
+    .stat-content h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0a2540;
+      line-height: 1.2;
+    }
+
+    .stat-content p {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin: 0;
+    }
+
+    /* ---------- SECTION TITLES ---------- */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 2.8rem 0 1.8rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #0a2540;
+    }
+
+    .section-header .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #ff7b00 30%, #e2e8f0 100%);
+      border-radius: 2px;
+    }
+
+    /* ---------- SKILL BARS ---------- */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.8rem 2.5rem;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 2.2rem 2.5rem;
+      border: 1px solid #eef2f6;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .skill-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .skill-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .skill-top i {
+      color: #ff7b00;
+      margin-right: 8px;
+    }
+
+    .skill-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: #e9eef3;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #0a2540, #2563eb);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .skill-percent {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* ---------- PAGE: ABOUT ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2.5rem;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 2.5rem;
+      border: 1px solid #eef2f6;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .about-photo {
+      background: #f8fafc;
+      border-radius: 28px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #eef2f6;
+      height: fit-content;
+    }
+
+    .about-photo img {
+      width: 100%;
+      max-width: 220px;
+      border-radius: 24px;
+      display: block;
+    }
+
+    .about-text h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0a2540;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p {
+      color: #334155;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .detail-list {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 1.5rem;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.98rem;
+      color: #1e293b;
+    }
+
+    .detail-item i {
+      color: #ff7b00;
+      width: 20px;
+      font-size: 1.1rem;
+    }
+
+    /* ---------- PAGE: EDUCATION ---------- */
+    .edu-timeline {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 2.5rem;
+      border: 1px solid #eef2f6;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .edu-card {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.8rem 1.8rem;
+      background: #f8fafc;
+      border-radius: 24px;
+      border-left: 6px solid #ff7b00;
+      margin-bottom: 1.5rem;
+    }
+
+    .edu-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .edu-icon-box {
+      background: #0a2540;
+      color: white;
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .edu-content h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0a2540;
+      margin-bottom: 4px;
+    }
+
+    .edu-content .meta {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .edu-content p {
+      color: #334155;
+      font-size: 1rem;
+    }
+
+    .badge-sem {
+      background: #ffedd5;
+      color: #b45309;
+      padding: 0.25rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    /* ---------- PAGE: CONTACT / WHATSAPP ---------- */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2.5rem;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 2.8rem;
+      border: 1px solid #eef2f6;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .contact-info h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0a2540;
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-info p {
+      color: #475569;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+
+    .contact-line i {
+      width: 42px;
+      height: 42px;
+      background: #f1f5f9;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff7b00;
+      font-size: 1.2rem;
+    }
+
+    .whatsapp-box {
+      background: #f0fdf4;
+      border-radius: 28px;
+      padding: 2rem;
+      border: 1px solid #bbf7d0;
+    }
+
+    .whatsapp-box h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      color: #166534;
+      margin-bottom: 1.2rem;
+    }
+
+    .whatsapp-box h3 i {
+      color: #25D366;
+      font-size: 2rem;
+    }
+
+    .whatsapp-box textarea {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      border-radius: 20px;
+      border: 1px solid #bbf7d0;
+      background: white;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 110px;
+      outline: none;
+      font-family: inherit;
+      transition: 0.15s;
+      margin-bottom: 1rem;
+    }
+
+    .whatsapp-box textarea:focus {
+      border-color: #25D366;
+      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 8px 18px -6px rgba(37, 211, 102, 0.35);
+      border: 1px solid #20b859;
+      width: 100%;
+    }
+
+    .whatsapp-btn i {
+      font-size: 1.3rem;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1da851;
+      transform: scale(1.01);
+    }
+
+    .whatsapp-note {
+      font-size: 0.8rem;
+      color: #166534;
+      margin-top: 10px;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.8rem;
+        text-align: center;
+      }
+
+      .hero-left {
+        align-items: center;
+      }
+
+      .hero-left h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-left p {
+        max-width: 100%;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar {
+        padding: 0 1.2rem;
+      }
+
+      .nav-links {
+        gap: 1.2rem;
+      }
+
+      .nav-links a span {
+        display: none;
+      }
+
+      .nav-links a i {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-left h1 {
+        font-size: 2rem;
+      }
+
+      .page {
+        padding: 1.8rem 1rem 3rem;
+      }
+
+      .hero {
+        padding: 1.8rem 1.2rem;
+      }
+
+      .edu-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .detail-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-code"></i> Raushan.dev
+    </div>
+    <div class="nav-links">
+      <a href="#" data-page="home" class="active"><i class="fas fa-home"></i> <span>Home</span></a>
+      <a href="#" data-page="about"><i class="fas fa-user"></i> <span>About</span></a>
+      <a href="#" data-page="education"><i class="fas fa-graduation-cap"></i> <span>Education</span></a>
+      <a href="#" data-page="contact"><i class="fab fa-whatsapp"></i> <span>Contact</span></a>
+    </div>
+  </nav>
+
+  <!-- ========== HOME PAGE ========== -->
+  <section id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="greeting">Hello, I'm</div>
+        <h1>Raushan <span>Kumar</span></h1>
+        <p>Diploma student in Computer Science & Engineering (Sem 3) at Govt. Polytechnic Barauni. Passionate frontend developer skilled in HTML, CSS, JavaScript, and MS Office.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary" data-page="contact"><i class="fab fa-whatsapp"></i> Hire / Message</a>
+          <a href="#" class="btn btn-outline" data-page="about"><i class="fas fa-arrow-right"></i> Know More</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-photo">
+          <!-- Photo referenced as raushan.png -->
+          <img src="raushan.png" alt="Raushan Kumar profile photo" onerror="this.src='https://ui-avatars.com/api/?name=Raushan+Kumar&size=300&background=0a2540&color=fff&bold=true&length=2';">
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-code"></i></div>
+        <div class="stat-content">
+          <h3>5+</h3>
+          <p>Core Skills</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="stat-content">
+          <h3>Sem 3</h3>
+          <p>Diploma CSE</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-laptop"></i></div>
+        <div class="stat-content">
+          <h3>Frontend</h3>
+          <p>Developer</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills preview -->
+    <div class="section-header">
+      <h2>Technical Proficiency</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="skills-container">
+      <div class="skill-item">
+        <div class="skill-top"><span><i class="fab fa-html5"></i> HTML</span> <span class="skill-percent">90%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-top"><span><i class="fab fa-css3-alt"></i> CSS</span> <span class="skill-percent">85%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-top"><span><i class="fab fa-js"></i> JavaScript</span> <span class="skill-percent">75%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-top"><span><i class="fas fa-file-word"></i> MS Office</span> <span class="skill-percent">80%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT PAGE ========== -->
+  <section id="page-about" class="page">
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="raushan.png" alt="Raushan Kumar" onerror="this.src='https://ui-avatars.com/api/?name=Raushan+Kumar&size=300&background=0a2540&color=fff&bold=true&length=2';">
+      </div>
+      <div class="about-text">
+        <h2>About Me</h2>
+        <p>I am a dedicated and enthusiastic Computer Science & Engineering diploma student currently in my 3rd semester at Govt. Polytechnic Barauni, Begusarai. My journey in tech is driven by a strong passion for frontend development and creating clean, user-friendly web experiences.</p>
+        <p>I have hands-on skills in HTML, CSS, JavaScript, and MS Office. I enjoy turning design ideas into responsive and interactive websites. I'm always eager to learn new technologies and improve my craft.</p>
+        <div class="detail-list">
+          <div class="detail-item"><i class="fas fa-user-graduate"></i> Diploma CSE · Sem 3</div>
+          <div class="detail-item"><i class="fas fa-map-marker-alt"></i> Begusarai, Bihar</div>
+          <div class="detail-item"><i class="fas fa-code"></i> Frontend Developer</div>
+          <div class="detail-item"><i class="fas fa-language"></i> Hindi, English</div>
+          <div class="detail-item"><i class="fas fa-bolt"></i> Quick Learner</div>
+          <div class="detail-item"><i class="fas fa-users"></i> Team Player</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EDUCATION PAGE ========== -->
+  <section id="page-education" class="page">
+    <div class="edu-timeline">
+      <div class="edu-card">
+        <div class="edu-icon-box"><i class="fas fa-university"></i></div>
+        <div class="edu-content">
+          <h3>Diploma in Computer Science & Engineering <span class="badge-sem">Sem 3</span></h3>
+          <div class="meta"><i class="fas fa-calendar-alt" style="margin-right:6px;"></i> 2024 – Present</div>
+          <p><strong>Govt. Polytechnic Barauni, Begusarai</strong><br>Currently pursuing 3rd semester with focus on programming fundamentals, web development, and computer systems.</p>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon-box"><i class="fas fa-school"></i></div>
+        <div class="edu-content">
+          <h3>Secondary Education (10th)</h3>
+          <div class="meta"><i class="fas fa-calendar-alt" style="margin-right:6px;"></i> Completed</div>
+          <p>Completed matriculation with a strong foundation in mathematics and science, which sparked my interest in technology.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT / WHATSAPP PAGE ========== -->
+  <section id="page-contact" class="page">
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <h2>Let's Connect</h2>
+        <p>Feel free to reach out for collaborations, project ideas, or just a friendly hello. I'm always open to new opportunities.</p>
+        <div class="contact-line"><i class="fab fa-whatsapp"></i> +91 98765 43210</div>
+        <div class="contact-line"><i class="fas fa-envelope"></i> raushan.kumar@example.com</div>
+        <div class="contact-line"><i class="fas fa-map-marker-alt"></i> Begusarai, Bihar, India</div>
+        <div style="margin-top: 2rem; background: #f1f5f9; border-radius: 20px; padding: 1.2rem;">
+          <p style="margin:0; font-size:0.95rem; color:#334155;"><i class="fas fa-info-circle" style="color:#ff7b00; margin-right:8px;"></i>Replace the phone number in the WhatsApp button with your own to start receiving messages.</p>
+        </div>
+      </div>
+      <div class="whatsapp-box">
+        <h3><i class="fab fa-whatsapp"></i> Send a Direct Message</h3>
+        <textarea id="contactMessage" placeholder="Write your message here... (e.g. Hi Raushan, I liked your portfolio!)">Hello Raushan, I visited your portfolio and would like to connect!</textarea>
+        <button class="whatsapp-btn" id="contactSendBtn">
+          <i class="fab fa-whatsapp"></i> Send via WhatsApp
+        </button>
+        <div class="whatsapp-note"><i class="fas fa-lock"></i> Opens WhatsApp with your message ready</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function() {
+      // ========== PAGE NAVIGATION ==========
+      const pages = document.querySelectorAll('.page');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const allNavLinks = document.querySelectorAll('[data-page]');
+
+      function showPage(pageId) {
+        // Hide all pages
+        pages.forEach(p => p.classList.remove('active'));
+        // Show selected
+        const target = document.getElementById('page-' + pageId);
+        if (target) target.classList.add('active');
+
+        // Update nav active state
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('data-page') === pageId) {
+            link.classList.add('active');
+          }
+        });
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Attach listeners to all elements with data-page
+      allNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const pageId = link.getAttribute('data-page');
+          if (pageId) showPage(pageId);
+        });
+      });
+
+      // ========== WHATSAPP INTEGRATION ==========
+      // ⚠️ IMPORTANT: Replace with your actual WhatsApp number (country code + number, no '+', no spaces)
+      const WHATSAPP_NUMBER = "919876543210";  // <-- CHANGE THIS
+
+      const contactMessage = document.getElementById('contactMessage');
+      const contactBtn = document.getElementById('contactSendBtn');
+
+      function sendWhatsApp() {
+        let msg = contactMessage.value.trim();
+        if (msg === '') {
+          msg = "Hello Raushan, I visited your portfolio and would like to connect!";
+        }
+        const encoded = encodeURIComponent(msg);
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
+      }
+
+      contactBtn.addEventListener('click', sendWhatsApp);
+
+      // Ctrl+Enter shortcut
+      contactMessage.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          sendWhatsApp();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
